@@ -10,11 +10,19 @@ class GameService:
         """Chama a procedure no banco para avançar o tick e atualizar o jogo."""
         try:
             with self.conn.cursor() as cursor:
+                # Chamada da procedure que processa o tick
                 cursor.execute("CALL process_tick()")
+
+                # Registro de log do tick (ajustar tick_id futuramente)
+                cursor.execute("""
+                    INSERT INTO logs_tick (tick_id, jogador_id, acao, detalhes)
+                    VALUES (%s, %s, %s, %s)
+                """, (1, None, "tick_manual", "Tick executado manualmente via GameService"))
+
                 self.conn.commit()
-            print("Tick processado com sucesso!")
+            print("✅ Tick processado e log registrado com sucesso!")
         except Exception as e:
-            print(f"Erro ao processar tick: {e}")
+            print(f"❌ Erro ao processar tick: {e}")
 
     def get_planets(self):
         """Retorna a lista de planetas e seus dados."""
