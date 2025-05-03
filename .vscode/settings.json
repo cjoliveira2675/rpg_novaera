@@ -1,21 +1,22 @@
 {
     "sqltools.connections": [
-        {
-            "mysqlOptions": {
-                "authProtocol": "default",
-                "enableSsl": "Disabled"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "driver": "MySQL",
-            "name": "RPG_Nova_Era",
-            "username": "root",
-            "database": "rpg_novaera"
-        }
+      {
+        "mysqlOptions": {
+          "authProtocol": "default",
+          "enableSsl": "Disabled"
+        },
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 3306,
+        "driver": "MySQL",
+        "name": "RPG_Nova_Era",
+        "username": "root",
+        "database": "rpg_novaera"
+      }
     ],
     "python.pythonPath": "venv\\Scripts\\python.exe",
     "code-runner.executorMap": {
-        "python": "python -m app.main"
+      "python": "python start.py"
     }
-}
+  }
+  
