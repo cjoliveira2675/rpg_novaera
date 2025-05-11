@@ -1,5 +1,3 @@
-# app/ui/visao_geral_page.py
-
 import flet as ft
 from app.components.side_menu import SideMenu
 from app.components.header_info_panel import HeaderInfoPanel
@@ -95,7 +93,7 @@ class OverviewPage:
             bgcolor=ft.colors.BLUE_GREY_800,
             border_radius=5,
             content=ft.Column([
-                ft.Text("Construções em andamento e fila", size=14, weight="bold", color=ft.colors.WHITE),
+                ft.Text("Construções em andamento e fila.", size=14, weight="bold", color=ft.colors.WHITE),
             ])
         )
 
