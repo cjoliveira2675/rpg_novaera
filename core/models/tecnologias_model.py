@@ -1,12 +1,13 @@
-from tecnologias import Tecnologia, TecnologiaTipo
+from .tecnologias import Tecnologia, TecnologiaTipo
 
-class MineraçãoAvancada(Tecnologia):
-    def __init__(self):
+class MineracaoAvancada(Tecnologia):
+    def __init__(self, pesquisada=False):
         super().__init__(
             nome="Mineração Avançada",
             descricao="Permite maior volume de extração de recursos.",
             tipo=TecnologiaTipo.MINERACAO,
             consumo={"Metal": 200, "Cristal": 150},
+            pesquisada=pesquisada,
             tempo_pesquisa=3,
             max_lvl=1
         )   

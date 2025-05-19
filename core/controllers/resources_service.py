@@ -1,5 +1,5 @@
 # RPG Nova Era - Service - Recursos
-from app.model.constructions_model import MinaMetal, MinaCristal, SintetizadorPrometium, PlantaSolar, Meteoro
+from core.models.constructions_model import MinaMetal, MinaCristal, SintetizadorPrometium, PlantaSolar, Meteoro
 
 class Planeta:
     def __init__(self):

@@ -1,26 +1,25 @@
 # RPG Nova Era - Model - Recursos
-from model.constructions import Construção, ConstruçãoTipo
+from .constructions import Construção, ConstruçãoTipo
 
 class MinaMetal(Construção):
     def __init__(self, nivel=1, construido=True):
-        super().__init__("Mina de Metal", ConstruçãoTipo.MINA_METAL, nivel, construido)
+        super().__init__("Mina de Metal", ConstruçãoTipo.RECURSOS, nivel, construido)
 
-    def produzir(self, energia_disponivel: int) -> dict:
-        if self.construido and energia_disponivel >= (5 * self.nivel):
-            return {"metal": 50 * self.nivel}
-        return {}
+    def produzir(self) -> dict:
+        if not self.construido:
+            return {}
+        base = 200
+        return {"metal": base * self.nivel}
 
     def consumir(self) -> dict:
-        if self.construido:
-            return {"energia": 5 * self.nivel}
-        return {}
+        return {"energia": 20 * self.nivel}
 
     def requisitos(self) -> dict:
-        return {"metal": 100 * (self.nivel + 1)}
+        return {}
 
 class MinaCristal(Construção):
     def __init__(self, nivel=1, construido=True):
-        super().__init__("Mina de Cristal", ConstruçãoTipo.MINA_CRISTAL, nivel, construido)
+        super().__init__("Mina de Cristal", ConstruçãoTipo.RECURSOS, nivel, construido)
 
     def produzir(self, energia_disponivel: int) -> dict:
         if self.construido and energia_disponivel >= (4 * self.nivel):
@@ -37,7 +36,7 @@ class MinaCristal(Construção):
 
 class SintetizadorPrometium(Construção):
     def __init__(self, nivel=1, construido=True):
-        super().__init__("Sintetizador de Prometium", ConstruçãoTipo.SINTETIZADOR_PROMETIUM, nivel, construido)
+        super().__init__("Sintetizador de Prometium", ConstruçãoTipo.RECURSOS, nivel, construido)
 
     def produzir(self, energia_disponivel: int) -> dict:
         if self.construido and energia_disponivel >= (8 * self.nivel):
@@ -54,20 +53,23 @@ class SintetizadorPrometium(Construção):
 
 class PlantaSolar(Construção):
     def __init__(self, nivel=1, construido=True):
-        super().__init__("Planta Solar", ConstruçãoTipo.PLANTA_SOLAR, nivel, construido)
+        super().__init__("Planta Solar", ConstruçãoTipo.RECURSOS, nivel, construido)
 
     def produzir(self) -> dict:
-        return {"energia": 100 * self.nivel}
+        if not self.construido:
+            return {}
+        base = 100
+        return {"energia": base * self.nivel}
 
     def consumir(self) -> dict:
         return {}
 
     def requisitos(self) -> dict:
-        return {"metal": 100 * self.nivel}
+        return {}
 
 class Armazem(Construção):
     def __init__(self, nivel=1, construido=True):
-        super().__init__("Armazém", ConstruçãoTipo.ARMAZEM, nivel, construido)
+        super().__init__("Armazém", ConstruçãoTipo.RECURSOS, nivel, construido)
         self.capacidade = 5000 * self.nivel
 
     def produzir(self) -> dict:
@@ -81,7 +83,7 @@ class Armazem(Construção):
 
 class TanquePrometium(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Tanque de Prometium", ConstruçãoTipo.TANQUE, nivel, construido)
+        super().__init__("Tanque de Prometium", ConstruçãoTipo.RECURSOS, nivel, construido)
         self.capacidade = 500 * self.nivel
 
     def produzir(self) -> dict:
@@ -96,7 +98,7 @@ class TanquePrometium(Construção):
 
 class PlantaFusao(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Planta de Fusão", ConstruçãoTipo.PLANTA_FUSAO, nivel, construido)
+        super().__init__("Planta de Fusão", ConstruçãoTipo.RECURSOS, nivel, construido)
 
     def produzir(self) -> dict:
         if self.construido:
@@ -113,7 +115,7 @@ class PlantaFusao(Construção):
 
 class MineracaoEspacial(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Unidade de Mineração Espacial", ConstruçãoTipo.MINERACAO_ESPACIAL, nivel, construido)
+        super().__init__("Unidade de Mineração Espacial", ConstruçãoTipo.ESTRUTURA_ESPACIAL, nivel, construido)
         self.capacidade_armazenamento = 1000 * self.nivel
 
     def produzir(self) -> dict:
@@ -131,7 +133,7 @@ class MineracaoEspacial(Construção):
     
 class Hangar(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Hangar", ConstruçãoTipo.HANGAR, nivel, construido)
+        super().__init__("Hangar", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {}
@@ -144,7 +146,7 @@ class Hangar(Construção):
 
 class LabPesquisas(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Laboratório de Pesquisas", ConstruçãoTipo.LAB_PESQUISAS, nivel, construido)
+        super().__init__("Laboratório de Pesquisas", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {}
@@ -157,7 +159,7 @@ class LabPesquisas(Construção):
 
 class IndustriaRobotica(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Indústria Robótica", ConstruçãoTipo.INDUSTRIA_ROBOTICA, nivel, construido)
+        super().__init__("Indústria Robótica", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"metal": 100 * self.nivel} if self.construido else {}
@@ -170,7 +172,7 @@ class IndustriaRobotica(Construção):
 
 class Refinaria(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Refinaria", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Refinaria", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"prometium": 20 * self.nivel} if self.construido else {}
@@ -183,7 +185,7 @@ class Refinaria(Construção):
 
 class Estaleiro(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Estaleiro", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Estaleiro", ConstruçãoTipo.ESTRUTURA_ESPACIAL, nivel, construido)
 
     def produzir(self) -> dict:
         return {"naves": 5 * self.nivel} if self.construido else {}
@@ -196,7 +198,7 @@ class Estaleiro(Construção):
 
 class SiloMisseis(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Silo de Mísseis", ConstruçãoTipo.SILO_MISSEIS, nivel, construido)
+        super().__init__("Silo de Mísseis", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"misseis": 2 * self.nivel} if self.construido else {}
@@ -209,7 +211,7 @@ class SiloMisseis(Construção):
 
 class SDP(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Sistema de Defesa Planetária", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Sistema de Defesa Planetária", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {}
@@ -222,7 +224,7 @@ class SDP(Construção):
 
 class BaseLunar(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Base Lunar", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Base Lunar", ConstruçãoTipo.ESTRUTURA_ESPACIAL, nivel, construido)
 
     def produzir(self) -> dict:
         return {"metal": 40 * self.nivel, "cristal": 20 * self.nivel} if self.construido else {}
@@ -235,7 +237,7 @@ class BaseLunar(Construção):
     
 class NucleoComando(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Núcleo de Comandos", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Núcleo de Comandos", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"metal": 40 * self.nivel, "cristal": 20 * self.nivel} if self.construido else {}
@@ -248,7 +250,7 @@ class NucleoComando(Construção):
     
 class Observatorio(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Observatório", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Observatório", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"metal": 40 * self.nivel, "cristal": 20 * self.nivel} if self.construido else {}
@@ -261,7 +263,7 @@ class Observatorio(Construção):
     
 class ControleAvancado(Construção):
     def __init__(self, nivel=0, construido=False):
-        super().__init__("Controle de estruturas avançadas", ConstruçãoTipo.CONSTRUCAO_ESPACIAL, nivel, construido)
+        super().__init__("Controle de estruturas avançadas", ConstruçãoTipo.SUPORTE_INFRA, nivel, construido)
 
     def produzir(self) -> dict:
         return {"metal": 40 * self.nivel, "cristal": 20 * self.nivel} if self.construido else {}

@@ -9,6 +9,9 @@ class ConstruçãoTipo(Enum):
     ESTRUTURA_AVANCADA = ("avançada", "portal", "eme", "canhão estelar")
 
 class Construção(ABC):
+    """
+    Classe base para construçãos do jogo.
+    """
     def __init__(self, nome: str, tipo: ConstruçãoTipo, nivel: int = 0, construido: bool = False):
         self.nome = nome
         self.tipo = tipo

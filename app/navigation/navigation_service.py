@@ -20,9 +20,9 @@ from app.pages.battle_logs_page import BattleLogsPage
 from app.pages.simulators_page import SimulatorsPage
 from app.pages.rankings_page import RankingsPage
 from app.pages.advanced_buildings_page import AdvancedBuildingsPage
-from app.pages.gates_page import GatesPage
-from app.pages.e_m_e_page import EMEPage
-from app.pages.star_cannon_page import StarCannonPage
+#from app.pages.gates_page import GatesPage
+#from app.pages.e_m_e_page import EMEPage
+#from app.pages.star_cannon_page import StarCannonPage
 from app.pages.moons_page import MoonsPage
 from app.pages.community_page import CommunityPage
 from app.pages.market_page import MarketPage
@@ -35,41 +35,41 @@ from app.pages.expeditions_page import ExpeditionsPage
 class NavigationService:
     def __init__(self, page: ft.Page):
         self.page = page
+        self.content_ref = ft.Ref[ft.Container]()  # <- Adiciona ref para o painel de conteúdo
+
         self.routes = [
             OverviewPage,
             NotificationsPage,
             MessagesPage,
             AnnouncementsPage,
             ResourcesPage,
-            ResearchLabPage,
             BuildingsPage,
+            ResearchLabPage,
             HangarPage,
             SDPPage,
             CommandCorePage,
             FleetsPage,
             ObservatoryPage,
             TrafficPage,
+            ExpeditionsPage,
+            AdvancedBuildingsPage,
+            #GatesPage,
+            #EMEPage,
+            #StarCannonPage,
+            MoonsPage,
             ArchivesPage,
             BattleLogsPage,
             SimulatorsPage,
             RankingsPage,
-            AdvancedBuildingsPage,
-            GatesPage,
-            EMEPage,
-            StarCannonPage,
-            MoonsPage,
+            AlliancesPage,
             CommunityPage,
             MarketPage,
-            AlliancesPage,
-            StorePage,
             CosmicEventsPage,
-            ExpeditionsPage,
+            StorePage,
         ]
 
     def navigate_to(self, index: int):
-        if index < 0 or index >= len(self.routes):
-            print(f"Índice de navegação inválido: {index}")
-            return
-        self.page.clean()
         page_class = self.routes[index]
-        self.page.add(page_class(self.page, self.navigate_to).build())
+        new_page = page_class(self.page, self.navigate_to).build()
+        self.content_ref.current.content = new_page
+        self.page.update()

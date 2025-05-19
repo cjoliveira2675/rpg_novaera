@@ -1,20 +1,20 @@
 import flet as ft
 
-def TopSummaryPanel():
+def TopSummaryPanel(label_refs):
     return ft.Container(
         padding=10,
-        bgcolor=ft.colors.BLUE_GREY_800,
+        bgcolor=ft.Colors.BLUE_GREY_800,
         height=150,
         content=ft.Column(
             controls=[
                 # Primeira linha: Data, Tick, Rank, Fama, Pontuação
                 ft.Row(
                     controls=[
-                        ft.Text("Data/Hora do servidor: 01/05/2025 14:30", size=12, color=ft.colors.WHITE),
-                        ft.Text("Tick atual: 12345", size=12, color=ft.colors.WHITE),
-                        ft.Text("Rank: 42", size=12, color=ft.colors.WHITE),
-                        ft.Text("Fama: 1342", size=12, color=ft.colors.WHITE),
-                        ft.Text("Pontuação: 9800", size=12, color=ft.colors.WHITE),
+                        ft.Text(ref=label_refs["horario"], size=12, color=ft.Colors.WHITE),
+                        ft.Text(ref=label_refs["tick"], size=12, color=ft.Colors.WHITE),
+                        ft.Text("Rank: 999999", size=12, color=ft.Colors.WHITE),
+                        ft.Text("Fama: 0", size=12, color=ft.Colors.WHITE),
+                        ft.Text("Pontuação: 0", size=12, color=ft.Colors.WHITE),
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                 ),
@@ -22,11 +22,10 @@ def TopSummaryPanel():
                 # Segunda linha: Recursos
                 ft.Row(
                     controls=[
-                        ft.Text("Metal: 12.300", size=12, color=ft.colors.GREY_200),
-                        ft.Text("Cristal: 8.500", size=12, color=ft.colors.GREY_200),
-                        ft.Text("Prometium: 3.700", size=12, color=ft.colors.GREY_200),
-                        ft.Text("Energia: 15.000", size=12, color=ft.colors.GREY_200),
-                        ft.Text("Fragmento estelar: 980", size=12, color=ft.colors.GREY_200),
+                        ft.Text(ref=label_refs["metal"], size=12, color=ft.Colors.GREY_200),
+                        ft.Text(ref=label_refs["cristal"], size=12, color=ft.Colors.GREY_200),
+                        ft.Text(ref=label_refs["prometium"], size=12, color=ft.Colors.GREY_200),
+                        ft.Text(ref=label_refs["energia"], size=12, color=ft.Colors.GREY_200),
                     ],
                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN
                 ),
@@ -34,14 +33,14 @@ def TopSummaryPanel():
                 # Terceira linha: Ícones de atalhos rápidos
                 ft.Row(
                     controls=[
-                        ft.Icon(name=ft.icons.NEWSPAPER, color=ft.colors.AMBER, tooltip="Notícias"),
-                        ft.Icon(name=ft.icons.EMAIL, color=ft.colors.ORANGE, tooltip="Mensagens"),
-                        ft.Icon(name=ft.icons.FORUM, color=ft.colors.AMBER, tooltip="Fórum"),
-                        ft.Icon(name=ft.icons.WARNING, color=ft.colors.RED, tooltip="Recebendo ataque"),
-                        ft.Icon(name=ft.icons.SHIELD, color=ft.colors.GREEN, tooltip="Recebendo defesa"),
-                        ft.Icon(name=ft.icons.PUBLIC, color=ft.colors.AMBER, tooltip="Tráfego em órbita"),
-                        ft.Icon(name=ft.icons.CAMPAIGN, color=ft.colors.BLUE, tooltip="Comunicados"),
-                        ft.Icon(name=ft.icons.HELP, color=ft.colors.BLUE, tooltip="Suporte"),
+                        ft.Icon(name=ft.Icons.NEWSPAPER, color=ft.Colors.AMBER, tooltip="Notícias"),
+                        ft.Icon(name=ft.Icons.EMAIL, color=ft.Colors.ORANGE, tooltip="Mensagens"),
+                        ft.Icon(name=ft.Icons.FORUM, color=ft.Colors.AMBER, tooltip="Fórum"),
+                        ft.Icon(name=ft.Icons.WARNING, color=ft.Colors.RED, tooltip="Recebendo ataque"),
+                        ft.Icon(name=ft.Icons.SHIELD, color=ft.Colors.GREEN, tooltip="Recebendo defesa"),
+                        ft.Icon(name=ft.Icons.PUBLIC, color=ft.Colors.AMBER, tooltip="Tráfego em órbita"),
+                        ft.Icon(name=ft.Icons.CAMPAIGN, color=ft.Colors.BLUE, tooltip="Comunicados"),
+                        ft.Icon(name=ft.Icons.HELP, color=ft.Colors.BLUE, tooltip="Suporte"),
                     ],
                     spacing=20
                 )

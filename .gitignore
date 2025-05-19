@@ -1,0 +1,39 @@
+
+# Ambiente virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Arquivos de cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Configuração de IDE
+.vscode/
+.idea/
+
+# Arquivos de log temporários
+*.log
+*.tmp
+
+# Arquivos de banco locais (caso usados em desenvolvimento)
+*.sqlite3
+
+# Configuração do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Git e backup
+*.bak
+*.swp
+*~
+
+# Arquivos do projeto
+.rpg_novaera.db
+
+# Credenciais e configs locais
+config.json

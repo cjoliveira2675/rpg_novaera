@@ -9,24 +9,27 @@ class TecnologiaTipo(Enum):
     UNIDADES = "Unidades"
 
 class Tecnologia(ABC):
-    def __init__(self, nome: str, descricao: str, tipo: TecnologiaTipo, consumo: dict, tempo_pesquisa: int, max_lvl: int):
+    """
+    Classe base para tecnologias do jogo.
+    """
+    def __init__(self, nome: str, descricao: str, tipo: TecnologiaTipo, consumo: dict, tempo_pesquisa: int, pesquisada: bool, max_lvl: int):
         self.nome = nome
         self.descricao = descricao
         self.tipo = tipo
         self.consumo = consumo
         self.tempo_pesquisa = tempo_pesquisa
-        self.pesquisado = False
+        self.pesquisada = pesquisada
         self.max_lvl = max_lvl
 
     def pesquisar(self, recursos: dict) -> bool:
-        if self.pesquisado:
+        if self.pesquisada:
             print(f"{self.nome} já foi pesquisada.")
             return False
 
         if all(recursos[res] >= qty for res, qty in self.consumo.items()):
             for res, qty in self.consumo.items():
                 recursos[res] -= qty
-            self.pesquisado = True
+            self.pesquisada = True
             print(f"{self.nome} foi pesquisada com sucesso.")
             return True
 
