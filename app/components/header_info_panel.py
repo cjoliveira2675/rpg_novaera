@@ -5,6 +5,7 @@ class HeaderInfoPanel(ft.Container):
         super().__init__(
             padding=10,
             bgcolor=ft.Colors.BLUE_GREY_900,
+            width=220,
             height=150,
             content=ft.Row(
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,

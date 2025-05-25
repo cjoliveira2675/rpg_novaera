@@ -133,6 +133,36 @@ class GameManager:
         else:
             print(f"⚠️ Recursos insuficientes para pesquisar {tecnologia.nome}. Aguardando...")
 
+    def evoluir_construcao(self, construcao):
+        """
+        Constrói ou evolui uma construção, se houver recursos suficientes.
+        """
+        requisitos = construcao.requisitos()
+
+        # Verifica se há recursos suficientes
+        if (self.recursos.metal >= requisitos.get("metal", 0) and
+            self.recursos.cristal >= requisitos.get("cristal", 0) and
+            self.recursos.prometium >= requisitos.get("prometium", 0)):
+
+            # Deduz os recursos
+            self.recursos.metal -= requisitos.get("metal", 0)
+            self.recursos.cristal -= requisitos.get("cristal", 0)
+            self.recursos.prometium -= requisitos.get("prometium", 0)
+
+            # Constrói ou evolui
+            if not construcao.construido:
+                construcao.construir()
+            else:
+                construcao.nivel += 1
+                print(f"✅ {construcao.nome} evoluiu para o nível {construcao.nivel}")
+
+            print(f"📉 Recursos após evolução:")
+            print(f"   Metal: {self.recursos.metal}")
+            print(f"   Cristal: {self.recursos.cristal}")
+            print(f"   Prometium: {self.recursos.prometium}")
+        else:
+            print(f"⚠️ Recursos insuficientes para evoluir {construcao.nome}")
+        
     def processar_tick(self):
         """
         Executa o ciclo do tick.

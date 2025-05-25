@@ -8,23 +8,21 @@ class OverviewPage:
     def build(self):
         self.page.title = "RPG - Visão Geral"
 
-        return ft.Column(
+        return ft.Row(
             expand=True,
+            scroll=ft.ScrollMode.AUTO,
             controls=[
-                #TopSummaryPanel(label_refs),
-                ft.Container(
-                    expand=True,
-                    content=ft.Column(
-                        scroll=ft.ScrollMode.AUTO,
-                        spacing=15,
-                        controls=[
-                            self.build_event_banner(),
-                            self.build_fleet_panel(),
-                            self.build_construction_queue(),
-                            self.build_research_queue(),
-                            self.build_production_queue(),
-                        ]
-                    )
+                ft.Column(
+                    width=820,
+                    height=800,
+                    scroll=ft.ScrollMode.AUTO,
+                    controls=[
+                        self.build_event_banner(),
+                        self.build_fleet_panel(),
+                        self.build_construction_queue(),
+                        self.build_research_queue(),                    
+                        self.build_production_queue()                        
+                    ]
                 )
             ]
         )

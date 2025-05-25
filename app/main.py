@@ -30,8 +30,8 @@ async def main(page: ft.Page):
     # Configurações
     page.title = "RPG Nova Era"
     page.theme_mode = ft.ThemeMode.DARK
-    page.window_width = 1200
-    page.window_height = 700
+    #page.window_width = 1200
+    #page.window_height = 700
 
     # Setup
     nav_service = NavigationService(page)
@@ -39,7 +39,7 @@ async def main(page: ft.Page):
     def on_navigate(index):
         nav_service.navigate_to(index)
 
-    layout = AppLayout(page, nav_service, on_navigate)
+    layout = AppLayout(page, nav_service, on_navigate, label_refs)
 
     page.add(layout)
 
