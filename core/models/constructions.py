@@ -18,27 +18,37 @@ class Construção(ABC):
         self.nivel = nivel
         self.construido = construido
 
-    def construir(self) -> None:
-        if not self.construido:
+    def construir(self, recursos: dict) -> bool:
+        custo = self.custo_nivel(1)
+        if all(recursos.get(res, 0) >= valor for res, valor in custo.items()):
+            for res, valor in custo.items():
+                recursos[res] -= valor
             self.construido = True
             self.nivel = 1
-            print(f"{self.nome} foi construída e está no nível {self.nivel}.")
+            print(f"{self.nome} foi construída e está no nível 1.")
+            return True
+        print(f"❌ Recursos insuficientes para construir {self.nome}. Custo: {custo}")
+        return False
 
     def evoluir(self, recursos: dict) -> bool:
-        requisitos = self.requisitos()
-        if all(recursos[res] >= req for res, req in requisitos.items()):
-            for res, req in requisitos.items():
-                recursos[res] -= req
+        custo = self.custo_nivel(self.nivel + 1)
+        if all(recursos.get(res, 0) >= valor for res, valor in custo.items()):
+            for res, valor in custo.items():
+                recursos[res] = recursos.get(res, 0) - valor
             self.nivel += 1
             print(f"{self.nome} evoluiu para o nível {self.nivel}")
             return True
-        print(f"Recursos insuficientes para evoluir {self.nome}")
+        print(f"Recursos insuficientes para evoluir {self.nome}. Custo: {custo}")
         return False
 
     def produzir(self) -> dict:
         """Método padrão para construções sem produção passiva."""
         return {}
-
+    
+    @abstractmethod
+    def custo_nivel(self, nivel) -> dict:
+        pass
+    
     @abstractmethod
     def consumir(self) -> dict:
         pass

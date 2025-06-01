@@ -1,9 +1,11 @@
 import flet as ft
 
 class AlliancesPage:
-    def __init__(self, page: ft.Page, on_navigate):
+    def __init__(self, page: ft.Page, on_navigate, game_manager=None, planeta=None):
         self.page = page
         self.on_navigate = on_navigate
+        self.game_manager = game_manager
+        self.planeta = planeta
 
     def build(self):
         self.page.title = "RPG - Aliança"

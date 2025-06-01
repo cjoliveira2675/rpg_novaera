@@ -1,16 +1,15 @@
 import flet as ft
 from app.components.header_info_panel import HeaderInfoPanel
 from app.components.summary_panel import TopSummaryPanel
-#from app.state.shared_state import label_refs
 from app.components.side_menu import SideMenu
 
 
 class AppLayout(ft.Column):
-    def __init__(self, page: ft.Page, nav_service, on_navigate, label_refs):
+    def __init__(self, page: ft.Page, nav_service, on_navigate, top_summary: TopSummaryPanel):
         self.page = page
         self.nav_service = nav_service
         self.on_navigate = on_navigate
-        self.label_refs = label_refs
+        self.top_summary = top_summary
 
         super().__init__(
             expand=True,
@@ -25,9 +24,7 @@ class AppLayout(ft.Column):
                         
                         ft.Container(
                             expand=True,
-                            #width=800,
-                            #height=150,
-                            content=TopSummaryPanel(self.page, self.label_refs)
+                            content=top_summary
                         )
                     ]
                 ),

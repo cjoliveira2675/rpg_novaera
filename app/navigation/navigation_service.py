@@ -33,9 +33,12 @@ from app.pages.expeditions_page import ExpeditionsPage
 
 
 class NavigationService:
-    def __init__(self, page: ft.Page):
+    def __init__(self, page: ft.Page, jogador, planeta, game_manager):
         self.page = page
-        self.content_ref = ft.Ref[ft.Container]()  # <- Adiciona ref para o painel de conteúdo
+        self.jogador = jogador
+        self.planeta = planeta
+        self.game_manager = game_manager
+        self.content_ref = ft.Ref[ft.Container]()
 
         self.routes = [
             OverviewPage,
@@ -70,6 +73,11 @@ class NavigationService:
 
     def navigate_to(self, index: int):
         page_class = self.routes[index]
-        new_page = page_class(self.page, self.navigate_to).build()
+        new_page = page_class(
+            self.page,
+            self.navigate_to,
+            self.game_manager,
+            self.planeta            
+        ).build()
         self.content_ref.current.content = new_page
         self.page.update()
